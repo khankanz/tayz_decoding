@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "tayz_decoding"
+  site-url: "https://khankanz.github.io/tayz_decoding"
+  description: "Fast decoding using CRANE algorithm"
+  repo-branch: main
+  repo-url: "https://github.com/khankanz/tayz_decoding"
