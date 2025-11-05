@@ -5,4 +5,11 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://khankanz.github.io',
                 'git_url': 'https://github.com/khankanz/tayz_decoding',
                 'lib_path': 'tayz_decoding'},
-  'syms': {'tayz_decoding.core': {'tayz_decoding.core.foo': ('parsers.html#foo', 'tayz_decoding/core.py')}}}
+  'syms': { 'tayz_decoding.core': {'tayz_decoding.core.foo': ('core.html#foo', 'tayz_decoding/core.py')},
+            'tayz_decoding.parsers': { 'tayz_decoding.parsers.Parser': ('parsers.html#parser', 'tayz_decoding/parsers.py'),
+                                       'tayz_decoding.parsers.Parser.__init__': ( 'parsers.html#parser.__init__',
+                                                                                  'tayz_decoding/parsers.py'),
+                                       'tayz_decoding.parsers.Parser.parse': ('parsers.html#parser.parse', 'tayz_decoding/parsers.py')},
+            'tayz_decoding.types': { 'tayz_decoding.types.Parser': ('types.html#parser', 'tayz_decoding/types.py'),
+                                     'tayz_decoding.types.Parser.__init__': ('types.html#parser.__init__', 'tayz_decoding/types.py'),
+                                     'tayz_decoding.types.Parser.parse': ('types.html#parser.parse', 'tayz_decoding/types.py')}}}
