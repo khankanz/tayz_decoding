@@ -5,6 +5,10 @@
 # %% auto 0
 __all__ = ['Parser']
 
+# %% ../nbs/01_parsers.ipynb 3
+import logging
+from typing import Callable, Any
+
 # %% ../nbs/01_parsers.ipynb 5
 class Parser:
     """

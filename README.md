@@ -24,8 +24,6 @@ $ pip install -e .
 $ nbdev_prepare
 ```
 
-## Usage
-
 ### Installation
 
 Install latest from the GitHub
@@ -57,11 +55,3 @@ find package manager specific guidelines on
 [pypi](https://pypi.org/project/tayz_decoding/) respectively.
 
 ## How to use
-
-Fill me in please! Don’t forget code examples:
-
-``` python
-1+1
-```
-
-    2
