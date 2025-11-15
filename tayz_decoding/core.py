@@ -211,12 +211,9 @@ def _crane_generate_constrained(self: Llama, schema: Type[BaseModel], s2_toks: L
     
 
 # %% ../nbs/00_core.ipynb 25
-from llama_cpp.llama_types import ChatCompletionResponseChoice, ChatCompletionResponseMessage
-
-# %% ../nbs/00_core.ipynb 26
 from llama_cpp.llama_chat_format import Jinja2ChatFormatter
 
-# %% ../nbs/00_core.ipynb 28
+# %% ../nbs/00_core.ipynb 27
 @patch
 def create_crane_chat_completion(self: Llama, messages: List[Dict[str,str]], schema=Type[BaseModel],
                                  s1:str = "<<JSON>>", s2:str="</JSON>>", temperature:float=0.0,
@@ -228,6 +225,7 @@ def create_crane_chat_completion(self: Llama, messages: List[Dict[str,str]], sch
         Generates text until `s1` delimiter (unconstrained), then switches to
         constrained JSON generation matching `pydantic_model` schema until `s2`.
         """
+        from llama_cpp.llama_types import ChatCompletionResponseChoice, ChatCompletionResponseMessage
         # reset model state
         self.reset()
         etok = self._model.token_get_text(self.token_eos())
