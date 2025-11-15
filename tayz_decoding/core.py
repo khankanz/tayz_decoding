@@ -210,6 +210,9 @@ def _crane_generate_constrained(self: Llama, schema: Type[BaseModel], s2_toks: L
     return generated_toks_in_phase
     
 
+# %% ../nbs/00_core.ipynb 25
+from llama_cpp.llama_types import ChatCompletionResponseChoice, ChatCompletionResponseMessage
+
 # %% ../nbs/00_core.ipynb 26
 from llama_cpp.llama_chat_format import Jinja2ChatFormatter
 
