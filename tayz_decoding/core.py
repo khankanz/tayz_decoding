@@ -143,7 +143,7 @@ def _find_subseq(a: List[int], sub: List[int]) -> int:
         if a[i:i+M] == sub: return i
     return -1
 
-# %% ../nbs/00_core.ipynb 24
+# %% ../nbs/00_core.ipynb 23
 @patch
 def _crane_generate_unconstrained(self: Llama, s1: str, max_toks: int, temperature: float, stop: List[str]) -> Generator[str, None, Tuple[List[int], str]]:
     """
@@ -172,7 +172,7 @@ def _crane_generate_unconstrained(self: Llama, s1: str, max_toks: int, temperatu
         self.eval([tok])
     return gen_toks, "length"
 
-# %% ../nbs/00_core.ipynb 25
+# %% ../nbs/00_core.ipynb 24
 @patch
 def _crane_generate_constrained(self: Llama, schema: Type[BaseModel], s2_toks: List[int], max_toks:int, prefix_toks_after_s1: List[int] | None = None) -> Generator[str, None, List[int]]:
     """
@@ -210,10 +210,10 @@ def _crane_generate_constrained(self: Llama, schema: Type[BaseModel], s2_toks: L
     return generated_toks_in_phase
     
 
-# %% ../nbs/00_core.ipynb 27
+# %% ../nbs/00_core.ipynb 26
 from llama_cpp.llama_chat_format import Jinja2ChatFormatter
 
-# %% ../nbs/00_core.ipynb 29
+# %% ../nbs/00_core.ipynb 28
 @patch
 def create_crane_chat_completion(self: Llama, messages: List[Dict[str,str]], schema=Type[BaseModel],
                                  s1:str = "<<JSON>>", s2:str="</JSON>>", temperature:float=0.0,
