@@ -33,25 +33,60 @@ Install latest from the GitHub
 $ pip install git+https://github.com/khankanz/tayz_decoding.git
 ```
 
-or from [conda](https://anaconda.org/khankanz/tayz_decoding)
-
-``` sh
-$ conda install -c khankanz tayz_decoding
-```
-
-or from [pypi](https://pypi.org/project/tayz_decoding/)
-
-``` sh
-$ pip install tayz_decoding
-```
 
 ### Documentation
 
-Documentation can be found hosted on this GitHub
-[repository](https://github.com/khankanz/tayz_decoding)’s
-[pages](https://khankanz.github.io/tayz_decoding/). Additionally you can
-find package manager specific guidelines on
-[conda](https://anaconda.org/khankanz/tayz_decoding) and
-[pypi](https://pypi.org/project/tayz_decoding/) respectively.
+#### Setting up the Conda env ('crane')
+This environment is configured for CUDA 12.1 + PyTorch with CUDA support, plus `xgrammar`, `transformers` and a CUDA-accelerated build of `llama-cpp-python`
+##### 1. Create and activate the env
+```bash
+conda create -n crane python=3.10 -y
+conda activate crane
+```
+##### 2. Install NVIDIA CUDA Toolkit via conda (recommended)
+This pulls the official NVIDIA libraries that match the driver on your machine.
+```bash
+conda install -c nvidia cuda-toolkit=12.1 -y
+```
+**Important note about CUDA compatibility**
+* NVIDIA drivers are forward-compatible: a driver that supports CUDA 12.1 (or newer) can run applications built against CUDA 12.1, 12.2, 12.3 etc. 
+* Run `nvidia-smi` - the 'CUDA Version' column in the top-right shows the maximum CUDA runtime your driver supports. As long as that number is >= 12.1, this env will get full GPU acceleration. 
+##### 3. Install PyTorch with CUDA 12.1 wheels
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+##### 4. Install `xgrammar` without its dependencies
+`xgrammar` currently pulls in dependencies that can conflict with versions we need later. Install it with `--no-deps` first. We manually install the exact versions we want right after:
+```bash
+pip install xgrammar --no-deps
+```
+##### 5. Install core dependencies
+Always use `--dry-run` first! This lets you see exactly which versions/wheels will be installed or upgraded *before* anything happens. It prevents accidental CUDA mismatches or huge re-downloads.
+```bash
+pip install pydantic transformers ninja --dry-run
+```
+* if the dry-runs look good, run them for real by removing flag
+##### 6. Install CUDA-accelerated `llama-cpp-python`
+This step compiles `llama-cpp-python` with GPU support (GMML -> CUDA)
+```bash
+# First: dry-run to verify it will compile and not try to pull wrong CUDA wheels
+CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python --dry-run
+
+# If everything looks correct → install for real
+CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python --verbose
+```
+* The `--verbose` flag is helpful the first time so you can see the cmake/ninja output and confirm it's actually detecting and using your CUDA toolkit.
+##### 7. Final
+```bash
+python -c "import torch; print('CUDA available:', torch.cuda.is_available())"
+python -c "import llama_cpp; print('llama-cpp-python built with CUDA:', llama_cpp.__cuda__)"
+pip list | grep -E "(torch|xgrammar|transformers|llama-cpp-python)"
+```
+
+Congratulations, you should now have a fully working `crane` env with GPU-accelerated PyTorch, HuggingFace transformers, `xgrammar` and `llama-cpp-python`. Don't forget to pip install this lib now; 
+```bash
+pip install git+https://github.com/khankanz/tayz_decoding.git
+```
 
 ## How to use
+TBD
